@@ -1,9 +1,12 @@
 {
   "extends": "../tsconfig.base", /*specifies which config file this one extends*/
   "compilerOptions": {
-    "removeComments": true
+    "removeComments": true,
+    "outFile": "../js/app.js"
+
   },
-  "include": [
-    "./**/*" /*file name pattern for the compiler to match*/
+  "files": [ /*array of the files we want to compile*/
+    "./app.ts"
+
   ]
 }
