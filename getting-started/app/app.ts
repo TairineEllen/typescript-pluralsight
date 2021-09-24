@@ -1,47 +1,19 @@
-/*provide additional instructions to the compiler*/
-/// <reference path="player.ts" /> 
+/// <reference path="game.ts" />
+/// <reference path="player.ts" />
 
-function startGame() {
-  let playerName: string | undefined = getInputValue('playername');  
-  logPlayer(playerName);
-  postScore(8, playerName); 
-}
+let newGame: Game;
 
-function logPlayer(name: string = 'MultiMath Player'): void {
-  console.log(`New game starting for player: ${name}`);
-}
+document.getElementById('startGame')!.addEventListener('click', () => {
+  const player: Player = new Player();
+  player.name = Utility.getInputValue('playername');
 
-function getInputValue(elementID: string): string | undefined {
-  const inputElement: HTMLInputElement = <HTMLInputElement>document.getElementById(elementID);
+  const problemCount: number = Number(Utility.getInputValue('problemCount'));
+  const factor: number = Number(Utility.getInputValue('factor'));
 
-  if (inputElement.value === '') {
-    return undefined;
-  } else {
-    return inputElement.value;
-  }
-}
+  newGame = new Game(player, problemCount, factor);
+  newGame.displayGame();
+});
 
-function postScore(score:number, playerName: string = 'MultiMath Player'): void {
-  let logger: (value: string) => void;
-  if (score < 0) {
-    logger = logError;
-  } else {
-    logger = logMessage;
-  }
-  const scoreElement: HTMLElement | null = document.getElementById('postedScores');
-  scoreElement!.innerText = `${score} - ${playerName}`; /*! = nonnull assertion operator*/
-  logger(`Score: ${score}`);
-}
-
-document.getElementById('startGame')!.addEventListener('click', startGame);
-
-const logMessage = (message: string) => console.log(message);
-
-function logError(err: string): void {
-  console.error(err);
-}
-
-const firstPlayer: Player = new Player();
-firstPlayer.name = 'Tairine';
-firstPlayer.age = 29;
-console.log(firstPlayer.formatName())
+document.getElementById('calculate')!.addEventListener('click', () => {
+  newGame.calculateScore();
+});
