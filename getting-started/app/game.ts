@@ -1,17 +1,17 @@
-/// <reference path="utility.ts" />
-/// <reference path="result.ts" />
-/// <reference path="player.ts" />
-/// <reference path="scoreboard.ts" />
+import { getValue } from './utility';
+import { Result } from './result';
+import { Player } from './player';
+import { Scoreboard as ResultPanel } from './scoreboard';
 
-class Game {
-  private scoreboard: Scoreboard = new Scoreboard();  
+export class Game {
+  private scoreboard: ResultPanel = new ResultPanel();
   /*declares the player properties and initialize it
   this properties are known as parameters properties since they're
   really created as part of parameters being passed to the constructor*/
-  constructor(public player: Player, public problemCount: number, public factor: number) {    
+  constructor(public player: Player, public problemCount: number, public factor: number) {
   };
 
-  displayGame(): void {    
+  displayGame(): void {
     /*create the HTML for the current game*/
     let gameForm: string = '';
     for (let i = 1; i <= this.problemCount; i++) {
@@ -32,7 +32,7 @@ class Game {
     let score: number = 0;
     /*loop through the text boxes and calculate the number that are correct*/
     for (let i = 1; i <= this.problemCount; i++) {
-      const answer: number = Number(Utility.getInputValue('answer' + i));
+      const answer: number = Number(getValue('answer' + i));
       if (i * this.factor === answer) {
         score++;
       };

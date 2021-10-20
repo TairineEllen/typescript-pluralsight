@@ -1,6 +1,6 @@
-/// <reference path="result.ts" />
+import { Result } from './result';
 
-class Scoreboard {
+export class Scoreboard {
   private results: Result[] = [];
   addResult(newResult: Result): void {
     this.results.push(newResult);
@@ -18,3 +18,16 @@ class Scoreboard {
     scoresElement.innerHTML = output;
   };
 };
+
+class Developer {
+  department: string;
+  private _title: string;
+  get title(): string {
+    return this._title;
+  }
+  set title(newTitle: string) {
+    this._title = newTitle.toUpperCase();
+  }
+}
+
+
